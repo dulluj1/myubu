@@ -59,8 +59,14 @@ RUN echo "ubuntu:ubuntu" | chpasswd && \
     sudo usermod -a -G sudo ubuntu
 
 
+RUN wget -qO - https://keys.anydesk.com/repos/DEB-GPG-KEY | apt-key add -
+RUN echo "deb http://deb.anydesk.com/ all main" > /etc/apt/sources.list.d/anydesk-stable.list
+RUN apt-get update
+RUN apt install anydesk
+
 RUN sudo add-apt-repository ppa:obsproject/obs-studio \
      && sudo apt-get update && sudo apt-get install -y obs-studio
+     
 
 COPY . /app
 
